@@ -16,6 +16,68 @@ ships as the next version; bumping `package.json`'s `version` for that
 release is an owner decision (recommended: `2.1.0`, since nothing below is
 a breaking change to the token/CSS-hook contract).
 
+### Added (Contract 2.1.0 adoption, 2026-09-25)
+
+- `theme.json`'s `contractVersion` moves to `2.1.0` and `stylingContractDigest`
+  is refreshed to `@rathnasgala2/template`'s current `contracts/theme-styling-contract.jcs`
+  `catalogDigest`. `cssLayers`/`templateRange` are unchanged (the three-file
+  shape already excludes `gala-base`, and `^2.0.0` already admits the
+  template's current version).
+- `components.css` sheds every rule the template's new `gala-base` layer
+  now supplies identically on every page regardless of theme: the h1/h2
+  heading `line-height`, the header/footer/main padding, the `img`
+  `max-width`, and the no-op `prefers-reduced-motion` guard. The focus ring
+  this theme's `--gala-color-focus`/`--gala-focus-width` tokens feed is now
+  real: `gala-base` paints it with `outline-style: solid` under
+  `:focus-visible`, so this theme carries no `outline-*` longhand of its own
+  at all (superseding THD-H1's interim "declare neither" fix below). The
+  fifth inert-outline site, `#main-content`'s `forced-colors` override, is
+  removed without replacement: forced-colors mode already overrides
+  `outline-color` to a system color regardless of the author value, so
+  `gala-base`'s ring needs no theme-side forced-colors handling.
+
+### Added (THD-H7, 2026-09-25)
+
+- A slight negative `letter-spacing` on `h1`-`h3` for the serif heading
+  face, and a `1.5` `line-height` on `pre`/`code`, as this theme's own
+  refinement on top of `gala-base`'s type scale, overflow/wrap handling and
+  responsive spacing (which now do the rest of what THD-H7 asked for).
+
+### Added (THD-H8, 2026-09-25)
+
+- `assets/divider-mark.svg`: this theme's one reference passive asset (178
+  bytes, sanitiser-clean), declared in `theme.json.assets` and
+  `package.json.files`, painted as `hr`'s `background-image`. README's new
+  "Iconography: the one reference asset" section documents the pattern
+  (a wide tile with the mark near one edge, since the closed CSS property
+  grammar has no `width`/`background-position`/`-repeat`/`-size`) for the
+  other four themes to follow.
+
+### Changed (THD-M1, THD-M9, THD-L1, THD-L2, 2026-09-25)
+
+- Five of the eight previously-unreferenced tokens now have a real use:
+  `color-accent` colors `h1` and the header-actions link's background,
+  `color-on-accent`/`space-3` style that link as a pill, `color-surface-raised`
+  lifts `select`/`option` above the flat header/footer surface, and
+  `space-8` widens the article-end break. `color-link-visited` still has no
+  use (blocked on `:visited` support in the pinned `css:check`);
+  `color-success`/`color-warning` still have no matching state anywhere in
+  this theme's markup and are left declared rather than misapplied.
+- `::selection` carries a short comment explaining why it is scoped to the
+  root compound only (THD-M9).
+- `print.css`'s hardcoded `#ffffff`/`#000000` literals become `Canvas`/
+  `CanvasText` system colors (THD-L2). The redundant reduced-motion guard
+  (THD-L1) was removed as part of the contract 2.1.0 delta above.
+
+### Changed (2026-09-25)
+
+- `.github/workflows/{ci.yml,nightly.yml,release.yaml}` move the template
+  sibling checkout to `e66d8771189966db1f8f876b005ab59d4f676bcb # 2.1.0
+(unreleased)` and the theme-tooling sibling checkout to
+  `68dceb301c071f3a60c2bf4c4f3215a6c3478502 # 0.1.0 (unpublished)`. The
+  template commit is not yet pushed to GitHub, so these workflows cannot
+  run in CI against it until it is.
+
 ### Changed (THD-H1, 2026-09-25)
 
 - Removed the four inert `outline-color`/`outline-width` declaration pairs

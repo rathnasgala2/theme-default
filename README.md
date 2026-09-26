@@ -245,32 +245,29 @@ one that switches with the resolved palette.
 ## Accessibility posture
 
 - **Contrast**: see above; asserted by test, both palettes, WCAG 2.2 AA.
-- **Focus visibility**: no `outline: none`/`outline-style: none` anywhere.
-  Previous revisions of this file additionally claimed that
-  `outline-color`/`outline-width` on the interactive hooks produced a
-  themed visible ring; that was false (2026-09-25 review, THD-H1):
-  `outline-style`'s initial value is `none`, so those two longhands paint
-  nothing on their own, and with the UA's own `:focus-visible { outline:
-auto }` supplying `outline-style: auto`, browsers deliberately ignore
-  author `outline-color`/`outline-width` and draw their own platform ring
-  — `--gala-color-focus`/`--gala-focus-width` had no visible effect. The
-  four inert declaration pairs have been removed rather than left as a
-  claim the CSS did not back up. Restoring a real themed ring needs
-  `:focus-visible`, which this contract version does not expose (TPL-H2);
-  until it does, the single hook for that restoration is the now-empty
-  `outline-color`/`outline-width` slot in each of the four rules named
-  above (`#main-content`, `a`, `select`, `#gala-appearance-color-mode` in
-  `components.css`).
-- **`forced-colors: active`**: `components.css` maps links, the main-content
-  focus ring, select borders and the divider rule to system colors
-  (`LinkText`, `Highlight`, `ButtonBorder`, `CanvasText`) so meaning survives
-  a forced-colors palette, per the brief's "forced-colors mode takes
-  precedence where the browser supplies system colors."
-- **`prefers-reduced-motion: reduce`**: collapses any animation/transition
-  duration to effectively zero at the root scope (defensive; this theme
-  declares no animations or transitions of its own, so this rule has no
-  visible effect today but keeps the obligation explicit and testable if a
-  future revision adds one).
+- **Focus visibility**: no `outline: none`/`outline-style: none` anywhere,
+  and no `outline-*` longhand of any kind in this theme's own CSS. Contract
+  2.1.0's `@rathnasgala2/template` ships a template-owned `gala-base` layer
+  with a real `:focus-visible { outline-style: solid; ... }` rule that reads
+  `--gala-color-focus`/`--gala-focus-width` (falling back to `Highlight`/
+  `2px` when no theme is selected at all); this theme's only job is to give
+  those two tokens a value, which it does in `tokens.css`. (A previous
+  revision of this file recorded that four `outline-color`/`outline-width`
+  declaration pairs painted nothing without `outline-style` and were
+  removed rather than left as a claim the CSS did not back up — 2026-09-25
+  review, THD-H1. That gap is what contract 2.1.0's `gala-base` layer
+  closes.)
+- **`forced-colors: active`**: `components.css` maps links, select borders
+  and the divider rule to system colors (`LinkText`, `ButtonBorder`,
+  `CanvasText`) so meaning survives a forced-colors palette, per the
+  brief's "forced-colors mode takes precedence where the browser supplies
+  system colors." The focus ring needs no theme-side forced-colors
+  handling: `gala-base`'s `outline-color` is overridden to a system color
+  by forced-colors mode regardless of the author-declared value.
+- **`prefers-reduced-motion: reduce`**: `gala-base` collapses animation/
+  transition duration to effectively zero for every element on every page,
+  regardless of which theme (if any) is selected; this theme declares no
+  animation or transition of its own and so no longer repeats that guard.
 - **Zoom/reflow**: this theme sets no fixed pixel widths that would prevent
   320px-wide reflow (`main`'s `max-width` is a `rem` content measure, never
   a lower bound); Playwright-driven 400% zoom/reflow, keyboard-journey and
