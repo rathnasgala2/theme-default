@@ -1,4 +1,91 @@
 @layer gala-tokens {
+  /**
+   * THD-C1: without script, `data-gala-resolved-color-mode` is never
+   * set (it is written only by the template's browser bootstrap), so
+   * neither resolved-mode block below ever matches and no `--gala-*`
+   * property is defined at all. This bare-root block plus the
+   * `prefers-color-scheme` override give every no-JS reader, text-mode
+   * crawler, and pre-hydration paint a real, themed default instead of an
+   * unstyled document. The resolved-mode blocks below still win once the
+   * template sets the attribute (higher specificity: two attribute
+   * selectors beat one).
+   */
+  [data-gala-publication-root] {
+    --gala-border-width: 1px;
+    --gala-color-accent: #0b4fa3;
+    --gala-color-border: #8a8a92;
+    --gala-color-canvas: #ffffff;
+    --gala-color-code-canvas: #f4f4f5;
+    --gala-color-code-text: #1a1a1a;
+    --gala-color-danger: #a8241c;
+    --gala-color-focus: #0b4fa3;
+    --gala-color-link: #0b4fa3;
+    --gala-color-link-visited: #6b2d8f;
+    --gala-color-on-accent: #ffffff;
+    --gala-color-selection: #b4d7ff;
+    --gala-color-success: #256b3a;
+    --gala-color-surface: #f4f4f5;
+    --gala-color-surface-raised: #eceef1;
+    --gala-color-text: #1a1a1a;
+    --gala-color-text-muted: #54545c;
+    --gala-color-warning: #7a4b00;
+    --gala-content-measure: 40rem;
+    --gala-focus-width: 2px;
+    --gala-font-body: Helvetica Neue, Arial, sans-serif;
+    --gala-font-heading: Georgia, Times New Roman, serif;
+    --gala-font-mono: SFMono-Regular, Menlo, Consolas, monospace;
+    --gala-radius-medium: 0.5rem;
+    --gala-radius-small: 0.25rem;
+    --gala-space-1: 0.25rem;
+    --gala-space-2: 0.5rem;
+    --gala-space-3: 0.75rem;
+    --gala-space-4: 1rem;
+    --gala-space-6: 1.5rem;
+    --gala-space-8: 2rem;
+    --gala-weight-heading: 700;
+    --gala-weight-medium: 500;
+    --gala-weight-normal: 400;
+    --gala-weight-strong: 700;
+  }
+  @media (prefers-color-scheme: dark) {
+    [data-gala-publication-root] {
+      --gala-border-width: 1px;
+      --gala-color-accent: #7fb2ff;
+      --gala-color-border: #6c6c74;
+      --gala-color-canvas: #0e0e10;
+      --gala-color-code-canvas: #17171a;
+      --gala-color-code-text: #f2f2f3;
+      --gala-color-danger: #ff8f8a;
+      --gala-color-focus: #ffd166;
+      --gala-color-link: #7fb2ff;
+      --gala-color-link-visited: #caa6f0;
+      --gala-color-on-accent: #0e0e10;
+      --gala-color-selection: #2a4a73;
+      --gala-color-success: #7fe0a0;
+      --gala-color-surface: #17171a;
+      --gala-color-surface-raised: #1f1f23;
+      --gala-color-text: #f2f2f3;
+      --gala-color-text-muted: #c9c9cf;
+      --gala-color-warning: #ffcf66;
+      --gala-content-measure: 40rem;
+      --gala-focus-width: 2px;
+      --gala-font-body: Helvetica Neue, Arial, sans-serif;
+      --gala-font-heading: Georgia, Times New Roman, serif;
+      --gala-font-mono: SFMono-Regular, Menlo, Consolas, monospace;
+      --gala-radius-medium: 0.5rem;
+      --gala-radius-small: 0.25rem;
+      --gala-space-1: 0.25rem;
+      --gala-space-2: 0.5rem;
+      --gala-space-3: 0.75rem;
+      --gala-space-4: 1rem;
+      --gala-space-6: 1.5rem;
+      --gala-space-8: 2rem;
+      --gala-weight-heading: 700;
+      --gala-weight-medium: 500;
+      --gala-weight-normal: 400;
+      --gala-weight-strong: 700;
+    }
+  }
   [data-gala-publication-root][data-gala-resolved-color-mode="light"] {
     --gala-border-width: 1px;
     --gala-color-accent: #0b4fa3;
