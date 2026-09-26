@@ -20,18 +20,21 @@ theme.json
 tokens.css
 components.css
 print.css
+assets/divider-mark.svg
 LICENSE
 README.md
 ```
 
 `utilities.css` is the optional fourth stylesheet in the two valid
 `stylesheets`/`cssLayers` shapes; this theme uses the three-file shape
-(`tokens.css`, `components.css`, `print.css`) with no `utilities.css` and no
-`assets/` members (no binary or SVG passive assets are declared).
+(`tokens.css`, `components.css`, `print.css`) with one declared passive
+asset, `assets/divider-mark.svg` (see "Iconography: the one reference
+asset" below).
 
 - **`package.json`** is DEC-097's closed, dependency-free, script-free
   object: exactly `name`, `version`, `license`, `files` (the unique
-  UTF-8-byte-sorted set `["components.css","print.css","theme.json","tokens.css"]`).
+  UTF-8-byte-sorted set
+  `["assets/divider-mark.svg","components.css","print.css","theme.json","tokens.css"]`).
   It has no `scripts`, no `dependencies`, no `devDependencies`, no `engines`
   field — those constraints belong to `tooling/` (below), never to the
   published package identity.
@@ -150,17 +153,21 @@ closed 64-entry `publicThemeSlotHooks` catalog from
 landmark/heading/prose/code/control/media/page-kind/slot hooks, always
 scoped under the required root compound `[data-gala-publication-root]` (or
 its resolved-palette variant), joined only by the contract's four closed
-combinators (` `, `>`, `+`, `~`). This version of the template's
-styling contract publishes an empty `pseudoClasses` set (no `:focus`/
-`:hover`/etc. selector is available to a theme at all in this template
-version), so focus-ring color/width customization uses only the
-`outline-color`/`outline-width` longhands (never `outline-style`, which
-this theme never sets) on interactive hooks — combining with whatever
-`:focus-visible` behavior the template's own base layer or the browser's
-UA stylesheet supplies, and never suppressing it. `theme.json.slotHooks` is
-the exact sorted set of the 51 hook IDs this CSS actually uses (not the
-whole 64-hook catalog — only the subset a theme actually styles is
-declared, per the S2 brief).
+combinators (` `, `>`, `+`, `~`). Contract 2.1.0 publishes a closed
+five-member `pseudoClasses` catalog (`:focus-visible`, `:hover`, `:visited`,
+`:active`, `:disabled`), but the `@rathnasgala2/theme-tooling` commit this
+repository is pinned to does not yet admit a pseudo-class in
+`check-css-hooks.mjs`'s selector grammar (it strips trailing `::`
+pseudo-elements only) — using one of the five today fails `css:check`, so
+this theme does not use any of them yet. The themed focus ring no longer
+needs one: `@rathnasgala2/template`'s own `gala-base` layer now ships a
+real `:focus-visible { outline-style: solid; ... }` rule reading
+`--gala-color-focus`/`--gala-focus-width` with a fallback, so this theme
+declares neither the pseudo-class nor any `outline-*` longhand at all —
+its only job is to give those two tokens a value. `theme.json.slotHooks` is
+the exact sorted set of the hook IDs this CSS actually uses (not the whole
+64-hook catalog — only the subset a theme actually styles is declared, per
+the S2 brief).
 
 `tooling/test/css-hooks.test.mjs` parses every stylesheet with `postcss` (a pinned
 exact version) and `postcss-selector-parser`, and fails the build if any
@@ -186,9 +193,40 @@ against different literal color/length/font values by construction (a flat
 custom-property declaration has no legitimate way to factor that
 repetition out while keeping every value an independently-readable
 literal, and it is data — token values — not logic). `components.css` and
-`print.css` stay in scope and are refactored (grouped selectors, e.g.
-`h4, h5` and the three muted-text slot hooks) wherever a real duplicate
-declaration block existed.
+`print.css` stay in scope and are refactored (grouped selectors, e.g. the
+shared `font-family`/`color`/`font-weight` groupings across `h1`-`h6` and
+the three muted-text slot hooks) wherever a real duplicate declaration
+block existed.
+
+## Iconography: the one reference asset
+
+`assets/divider-mark.svg` is this theme's one reference passive asset
+(THD-H8): a tiny (178-byte), sanitiser-clean SVG — one `<svg>` root and one
+`<polygon>`, no `<script>`, no `<style>`, no external or `data:`/`blob:`
+reference, nothing outside `theme-svg-sanitizer.js`'s closed tag/attribute
+allowlist — declared in `theme.json.assets` (`mediaType: "image/svg+xml"`)
+and `package.json.files`, and consumed by exactly one rule,
+`components.css`'s `hr` (`prose-divider`).
+
+The pattern other themes can follow: `background-image` and `height` are
+both in `check-css-grammar.mjs`'s closed property allowlist, but `width`,
+`background-position`, `background-repeat` and `background-size` are not —
+so a theme-declared icon has to get its layout from the allowed properties
+alone. This asset does it by being a wide (16×8) tile with the mark drawn
+once, near the left edge, and transparent everywhere else: the browser's
+default `background-repeat: repeat` still tiles it, but the visible glyph
+only ever appears once per `hr`, because `height: var(--gala-space-2)`
+leaves no room for a second row and the horizontal tile is wide enough that
+a second column never becomes visible at any realistic content measure. A
+theme wanting a _repeating_ motif instead (a dotted rule, a striped
+background) can use the same two properties directly, with the tile's own
+width chosen to repeat on purpose rather than to hide the repeat.
+
+A static SVG asset cannot read this package's `--gala-*` custom
+properties (it is not inlined into the document), so its fill is a literal
+color (`#8a8a92`, this theme's light-palette `color-border`) chosen to read
+as a quiet neutral mark against both the light and dark canvas rather than
+one that switches with the resolved palette.
 
 ## Accessibility posture
 
@@ -286,9 +324,16 @@ digest, and does not exist in this local environment yet (LOCAL-4: do not
 fabricate remote evidence). The digests this package ships are therefore
 **genuine, locally-computed evidence from this repository's own real local
 runners** (`schema`, `semantic`, `package`, `css`, `absence` — five of the
-eight runner IDs; `binary` has nothing to validate since this theme
-declares no non-CSS assets, and `browser`/`a11y` are Playwright/axe-core,
-explicitly S2-T22's task, not this one) — not a fabricated stand-in for the
+eight runner IDs; `browser`/`a11y` are Playwright/axe-core, explicitly
+S2-T22's task, not this one). This theme now declares one non-CSS passive
+asset (`assets/divider-mark.svg`, THD-H8); `binary` is still not among the
+five local runners `@rathnasgala2/theme-tooling`'s fixture release runs —
+the shared package/absence/schema runners already cover the asset's file
+mode, packed-set membership and forbidden-construct scan, but nothing yet
+independently re-sniffs its bytes against the raster/font/SVG allowlist the
+way `browser`/`a11y` would. Noted here rather than left implied, so it is
+not mistaken for a gap this repository's own evidence papers over. The
+digests this package ships are not a fabricated stand-in for the
 eventual shared CI fixture release, and not the DEC-097-mandated _shared_
 release (which by definition must be identical bytes across all five theme
 packages; this package's fixture release is this package's own, until

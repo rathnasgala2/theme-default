@@ -108,9 +108,9 @@
   }
 
   [data-gala-publication-root] hr {
-    background-color: var(--gala-color-border);
+    background-image: url("assets/divider-mark.svg");
     border: 0;
-    height: var(--gala-border-width);
+    height: var(--gala-space-2);
     margin: var(--gala-space-6) 0;
   }
 
