@@ -16,6 +16,24 @@ ships as the next version; bumping `package.json`'s `version` for that
 release is an owner decision (recommended: `2.1.0`, since nothing below is
 a breaking change to the token/CSS-hook contract).
 
+### Changed (THD-M11, 2026-09-25 third pass)
+
+- `@rathnasgala2/theme-tooling` sibling checkout re-pinned to
+  `ae2ee4979a4e5f6a4335c99b869f80eacd359788` across `ci.yml`, `nightly.yml`
+  and `release.yaml` (still `0.1.0`, unpublished); that commit serves the
+  `visual:check` fixture over loopback HTTP instead of opening the
+  rendered file directly, which resolves the harness defect the previous
+  pass's README/CHANGELOG entries described — the pinned commit's
+  `visual:check` now reports zero `serious`/`critical` axe violations and
+  no horizontal overflow across all six palette/viewport combinations, so
+  those entries' "harness cannot load this theme's CSS" claim no longer
+  holds and is corrected below (README "Visual/accessibility check").
+- Digest chain regenerated (`fixtureDigest`/`evidenceDigest`/`integrity`)
+  for the re-pin: the pinned `theme-tooling` commit also adds a new
+  `color-accent`/`color-code-canvas` contrast pair to its floor catalog,
+  which changes `evidenceDigest`'s conformance-result input even though no
+  file in this repository's own published set changed bytes.
+
 ### Added (THD-M10, 2026-09-25 second pass)
 
 - `.github/workflows/ci.yml` gains its own `visual` job: installs Chromium

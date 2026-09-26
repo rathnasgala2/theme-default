@@ -290,26 +290,21 @@ one that switches with the resolved palette.
   320px-wide reflow (`main`'s `max-width` is a `rem` content measure, never
   a lower bound); a Playwright-driven 400% zoom assertion and keyboard-journey
   walkthroughs remain S2-T22, out of this task's scope.
-- **Visual/accessibility check (THD-M10)**: `@rathnasgala2/theme-tooling`'s
-  `visual:check` (Playwright + axe-core, not part of `verify` — it needs a
-  browser binary; see `../theme-tooling/README.md` "Visual/accessibility
-  check") renders this theme through the template at 320/768/1440px in both
-  palettes and fails on any `serious`/`critical` axe violation or horizontal
-  overflow. `.github/workflows/ci.yml`'s `visual` job runs it on every push
-  and uploads screenshots as a build artifact. Five of the six combinations
-  are clean; the dark-palette run reports a `color-contrast` violation on
-  the rendered `a` elements that this repository's own token-level
-  `contrast:check` does not reproduce for the same `color-link`/background
-  pairs (8.28:1-8.92:1) — inspecting the rendered page shows none of this
-  theme's stylesheets or the template's bootstrap script actually load
-  under the harness's `file://` navigation (their `href`/`src` are
-  root-absolute paths, which do not resolve against a `file://` origin), so
-  the flagged color is the browser's unstyled dark-mode default link color,
-  not a token this theme controls. This is a harness defect in
-  `@rathnasgala2/theme-tooling`'s pinned commit, not a theme-content
-  contrast gap; it is expected to clear once the harness serves the fixture
-  over `http://` (or otherwise resolves root-absolute asset paths) instead
-  of opening the rendered file directly.
+- **Visual/accessibility check (THD-M10, corrected THD-M11)**:
+  `@rathnasgala2/theme-tooling`'s `visual:check` (Playwright + axe-core,
+  not part of `verify` — it needs a browser binary; see
+  `../theme-tooling/README.md` "Visual/accessibility check") renders this
+  theme through the template at 320/768/1440px in both palettes and fails
+  on any `serious`/`critical` axe violation or horizontal overflow.
+  `.github/workflows/ci.yml`'s `visual` job runs it on every push and
+  uploads screenshots as a build artifact. The pinned `theme-tooling`
+  commit now serves the rendered fixture over loopback `http://` instead
+  of opening the rendered file directly, so this theme's stylesheets and
+  the template's bootstrap script actually load; all six palette/viewport
+  combinations are clean (zero `serious`/`critical` axe violations, no
+  horizontal overflow). A prior pass of this file recorded a dark-palette
+  `color-contrast` false positive traced to that `file://`-navigation
+  harness defect — it cleared with the re-pin and is not a live finding.
 
 ## Digest cycle (`fixtureDigest`, `evidenceDigest`, `integrity`)
 
