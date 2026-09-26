@@ -18,6 +18,29 @@ ships as the next version; bumping `package.json`'s `version` for that
 release is an owner decision (recommended: `2.1.0`, since nothing below is
 a breaking change to the token/CSS-hook contract).
 
+### Fixed (THD-M6, 2026-09-26 fourth pass)
+
+- `theme.json`'s `"package"` field named `@rathnasgala2/theme-default@2.0.0`
+  even after `package.json`'s `version` was bumped to `2.1.0` — a consumer
+  resolving this theme's identity from `theme.json` (rather than
+  `package.json`) would throw `THEME_CONTRACT_IDENTITY_MISMATCH`. Fixed to
+  `@2.1.0`; digest chain regenerated in this same commit (no
+  `LOCAL_RUNNERS` script changed, so only `integrity`/`evidenceDigest`
+  shift, not `fixtureDigest`). `@rathnasgala2/theme-tooling`'s
+  `package-identity:check` (new `verify` step) catches this class from now
+  on.
+- `sbom.cdx.json` is no longer committed in this repository. It used to be
+  `cyclonedx-npm` scanning `@rathnasgala2/theme-tooling`'s own
+  `package-lock.json` and attributing the result to this theme's identity
+  — a design that diverged between a local machine and CI three times
+  running (see `theme-tooling`'s own CHANGELOG 0.2.0 for the root cause).
+  `sbom:generate` now builds a self-contained CycloneDX document directly
+  from this package's own `name`/`version` (zero dependency components —
+  this theme ships none); `.github/workflows/release.yaml` generates it
+  fresh at release time and uploads it as a build artifact instead of
+  committing it. `@rathnasgala2/theme-tooling` sibling checkout re-pinned
+  accordingly.
+
 ### Changed (THD-M11, 2026-09-25 third pass)
 
 - `@rathnasgala2/theme-tooling` sibling checkout re-pinned to
