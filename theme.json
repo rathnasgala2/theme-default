@@ -2,8 +2,8 @@
   "schemaId": "urn:gala:schema:theme-contract:2.0.0",
   "schemaVersion": "2.0.0",
   "themeId": "default",
-  "package": "@rathnasgala2/theme-default@2.0.0",
-  "contractVersion": "2.0.0",
+  "package": "@rathnasgala2/theme-default@2.1.0",
+  "contractVersion": "2.1.0",
   "templateRange": "^2.0.0",
   "stylesheets": ["tokens.css", "components.css", "print.css"],
   "cssLayers": ["gala-tokens", "gala-components", "gala-print"],
@@ -39,7 +39,6 @@
     "landmark-footer",
     "landmark-header",
     "landmark-main",
-    "landmark-main-content",
     "landmark-navigation",
     "media-image",
     "page-error",
@@ -65,8 +64,8 @@
     {
       "key": "color-accent",
       "type": "color",
-      "light": "#0b4fa3",
-      "dark": "#7fb2ff"
+      "light": "#0a6aa6",
+      "dark": "#0077fc"
     },
     {
       "key": "color-border",
@@ -101,7 +100,7 @@
     {
       "key": "color-focus",
       "type": "color",
-      "light": "#0b4fa3",
+      "light": "#0a6aa6",
       "dark": "#ffd166"
     },
     {
@@ -143,8 +142,8 @@
     {
       "key": "color-surface-raised",
       "type": "color",
-      "light": "#eceef1",
-      "dark": "#1f1f23"
+      "light": "#d5d7da",
+      "dark": "#2d2d31"
     },
     {
       "key": "color-text",
@@ -247,22 +246,29 @@
     {
       "path": "tokens.css",
       "mediaType": "text/css",
-      "byteLength": "2658",
-      "sha256": "sha256:91a77b8c70321685fb390e39d17fea17f96fe4c875e297ebe7df917c372bd0a5",
+      "byteLength": "5926",
+      "sha256": "sha256:2f88fde5dc1cc841136d9f92b08ac94f14fac4f40314df31a141a2a8113208e7",
       "license": "Apache-2.0"
     },
     {
       "path": "components.css",
       "mediaType": "text/css",
-      "byteLength": "7806",
-      "sha256": "sha256:02f5eea9e789895949b5af4555145f300e9ae45bace10710bdc7612b52684340",
+      "byteLength": "8157",
+      "sha256": "sha256:cdc5637fffd34b3cbf6d27c72c1e779ff352c64c48c5dbed84a2763846cb4b08",
       "license": "Apache-2.0"
     },
     {
       "path": "print.css",
       "mediaType": "text/css",
-      "byteLength": "725",
-      "sha256": "sha256:c8c85ada0cb6c824d550f55ee4edc6a366241461850dd5c4ffa0d184fe7fc5c0",
+      "byteLength": "739",
+      "sha256": "sha256:b23304c85b96e2e59738393c881849a0f044832f3daa7ca3712c81ff24add8b7",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "assets/divider-mark.svg",
+      "mediaType": "image/svg+xml",
+      "byteLength": "178",
+      "sha256": "sha256:18b1b1a198a70096e0fdd9f5cde6163c47825907edc78f35558082fa7c5129f5",
       "license": "Apache-2.0"
     }
   ],
@@ -274,13 +280,13 @@
     "fixture-token-catalog-contrast"
   ],
   "browserPolicyRef": "gala-theme-css-v2-20211224",
-  "integrity": "sha256:9278ca51caff640bff51e3fb8402fb23a7e93a588551c886f19d6ce960ac15c2",
+  "integrity": "sha256:953e457400e9b16f6a5c6bab8aa9a5a4ef7095ca0f10037dfd29ab26ed7559c6",
   "budgets": {
     "maximumFileBytes": "16384",
     "maximumTotalBytes": "40960",
     "maximumFiles": 8
   },
-  "fixtureDigest": "sha256:b27cacb5520053332338a278e47cf48ae822a599b5705bb82cbcf2afe2daf8f8",
-  "evidenceDigest": "sha256:06bd0d55af94ef238a3bbd7d89f25edbb03317318d8355b81018d287ac72ef5c",
-  "stylingContractDigest": "sha256:46b43a6d1775f88bf2ded331512bd0cf27d232e256e40a89bda773e50897877f"
+  "fixtureDigest": "sha256:42ac8f857fb188b6e645f2d422fd87584f4a6273daaf1d0245a85698bd2a181a",
+  "evidenceDigest": "sha256:4debd06bc379b333492a055c832b6ba22a45ea8c6becf5f18d8a63e72537e1d4",
+  "stylingContractDigest": "sha256:4aca7e9794bddfb2c3afd22f4efd078e7dcf69dde9d62ce52d28cec19aef8b91"
 }

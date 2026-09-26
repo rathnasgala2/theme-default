@@ -10,7 +10,6 @@
   [data-gala-publication-root] header {
     background-color: var(--gala-color-surface);
     border-bottom: var(--gala-border-width) solid var(--gala-color-border);
-    padding: var(--gala-space-4) var(--gala-space-6);
   }
 
   [data-gala-publication-root] nav {
@@ -21,55 +20,52 @@
     display: block;
     margin: 0 auto;
     max-width: var(--gala-content-measure);
-    padding: var(--gala-space-6) var(--gala-space-4);
-  }
-
-  [data-gala-publication-root] #main-content {
-    outline-color: var(--gala-color-focus);
-    outline-width: var(--gala-focus-width);
   }
 
   [data-gala-publication-root] footer {
     background-color: var(--gala-color-surface);
     border-top: var(--gala-border-width) solid var(--gala-color-border);
     color: var(--gala-color-text-muted);
-    padding: var(--gala-space-6) var(--gala-space-6);
   }
 
   [data-gala-publication-root] article {
     color: var(--gala-color-text);
   }
 
+  [data-gala-publication-root] h1,
+  [data-gala-publication-root] h2,
+  [data-gala-publication-root] h3,
+  [data-gala-publication-root] h4,
+  [data-gala-publication-root] h5,
+  [data-gala-publication-root] h6 {
+    font-family: var(--gala-font-heading);
+  }
+
   [data-gala-publication-root] h1 {
-    color: var(--gala-color-text);
-    font-family: var(--gala-font-heading);
-    font-weight: var(--gala-weight-heading);
-    line-height: 1.2;
+    color: var(--gala-color-accent);
   }
 
-  [data-gala-publication-root] h2 {
-    color: var(--gala-color-text);
-    font-family: var(--gala-font-heading);
-    font-weight: var(--gala-weight-heading);
-    line-height: 1.25;
-  }
-
-  [data-gala-publication-root] h3 {
-    color: var(--gala-color-text);
-    font-family: var(--gala-font-heading);
-    font-weight: var(--gala-weight-heading);
-  }
-
+  [data-gala-publication-root] h2,
+  [data-gala-publication-root] h3,
   [data-gala-publication-root] h4,
   [data-gala-publication-root] h5 {
     color: var(--gala-color-text);
-    font-family: var(--gala-font-heading);
-    font-weight: var(--gala-weight-strong);
   }
 
   [data-gala-publication-root] h6 {
     color: var(--gala-color-text-muted);
-    font-family: var(--gala-font-heading);
+  }
+
+  [data-gala-publication-root] h1,
+  [data-gala-publication-root] h2,
+  [data-gala-publication-root] h3 {
+    font-weight: var(--gala-weight-heading);
+    letter-spacing: -0.01em;
+  }
+
+  [data-gala-publication-root] h4,
+  [data-gala-publication-root] h5,
+  [data-gala-publication-root] h6 {
     font-weight: var(--gala-weight-strong);
   }
 
@@ -80,9 +76,20 @@
 
   [data-gala-publication-root] a {
     color: var(--gala-color-link);
-    outline-color: var(--gala-color-focus);
-    outline-width: var(--gala-focus-width);
     text-decoration-line: underline;
+    text-decoration-skip-ink: auto;
+  }
+
+  [data-gala-publication-root] a:visited {
+    color: var(--gala-color-link-visited);
+  }
+
+  [data-gala-publication-root] a:hover {
+    text-decoration-thickness: 0.15em;
+  }
+
+  [data-gala-publication-root] a:focus-visible {
+    --gala-color-focus: var(--gala-color-link);
   }
 
   [data-gala-publication-root] blockquote {
@@ -117,10 +124,14 @@
   }
 
   [data-gala-publication-root] hr {
-    background-color: var(--gala-color-border);
+    background-image: url("assets/divider-mark.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1rem 0.5rem;
     border: 0;
-    height: var(--gala-border-width);
-    margin: var(--gala-space-6) 0;
+    height: var(--gala-space-2);
+    margin: var(--gala-space-6) auto;
+    width: var(--gala-space-8);
   }
 
   [data-gala-publication-root] time {
@@ -133,7 +144,6 @@
 
   [data-gala-publication-root] img {
     border-radius: var(--gala-radius-small);
-    max-width: 100%;
   }
 
   [data-gala-publication-root] pre {
@@ -141,6 +151,7 @@
     border-radius: var(--gala-radius-medium);
     color: var(--gala-color-code-text);
     font-family: var(--gala-font-mono);
+    line-height: 1.5;
     margin: var(--gala-space-4) 0;
     padding: var(--gala-space-4);
   }
@@ -150,6 +161,7 @@
     border-radius: var(--gala-radius-small);
     color: var(--gala-color-code-text);
     font-family: var(--gala-font-mono);
+    line-height: 1.5;
     padding: 0 var(--gala-space-1);
   }
 
@@ -214,17 +226,19 @@
   }
 
   [data-gala-publication-root] select {
-    background-color: var(--gala-color-surface);
+    background-color: var(--gala-color-surface-raised);
     border: var(--gala-border-width) solid var(--gala-color-border);
     border-radius: var(--gala-radius-small);
     color: var(--gala-color-text);
-    outline-color: var(--gala-color-focus);
-    outline-width: var(--gala-focus-width);
     padding: var(--gala-space-1) var(--gala-space-2);
   }
 
+  [data-gala-publication-root] select:focus-visible {
+    --gala-color-focus: var(--gala-color-accent);
+  }
+
   [data-gala-publication-root] option {
-    background-color: var(--gala-color-surface);
+    background-color: var(--gala-color-surface-raised);
     color: var(--gala-color-text);
   }
 
@@ -234,13 +248,20 @@
   }
 
   [data-gala-publication-root] #gala-appearance-color-mode {
-    background-color: var(--gala-color-surface);
     border-color: var(--gala-color-border);
   }
 
   [data-gala-publication-root] [data-gala-slot="header-actions"] {
     display: flex;
     gap: var(--gala-space-2);
+  }
+
+  [data-gala-publication-root] [data-gala-slot="header-actions"] a {
+    background-color: var(--gala-color-accent);
+    border-radius: var(--gala-radius-small);
+    color: var(--gala-color-on-accent);
+    padding: var(--gala-space-1) var(--gala-space-3);
+    text-decoration-line: none;
   }
 
   [data-gala-publication-root] [data-gala-slot="footer-profile"],
@@ -251,7 +272,7 @@
 
   [data-gala-publication-root] [data-gala-slot="article-end"] {
     border-top: var(--gala-border-width) solid var(--gala-color-border);
-    margin-top: var(--gala-space-6);
+    margin-top: var(--gala-space-8);
     padding-top: var(--gala-space-4);
   }
 
@@ -259,25 +280,17 @@
     color: var(--gala-color-danger);
   }
 
+  /* Root-scoped by contract (the first compound must be the root/palette
+     compound); relies on the highlight pseudo-element inheriting down the
+     originating-element chain, which current Chromium and Firefox do. */
   [data-gala-publication-root]::selection {
     background-color: var(--gala-color-selection);
     color: var(--gala-color-text);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    [data-gala-publication-root] {
-      animation-duration: 0.001ms !important;
-      transition-duration: 0.001ms !important;
-    }
-  }
-
   @media (forced-colors: active) {
     [data-gala-publication-root] a {
       color: LinkText;
-    }
-
-    [data-gala-publication-root] #main-content {
-      outline-color: Highlight;
     }
 
     [data-gala-publication-root] select {
