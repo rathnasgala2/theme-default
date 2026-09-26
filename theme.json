@@ -64,8 +64,8 @@
     {
       "key": "color-accent",
       "type": "color",
-      "light": "#0b4fa3",
-      "dark": "#7fb2ff"
+      "light": "#0a6aa6",
+      "dark": "#0077fc"
     },
     {
       "key": "color-border",
@@ -100,7 +100,7 @@
     {
       "key": "color-focus",
       "type": "color",
-      "light": "#0b4fa3",
+      "light": "#0a6aa6",
       "dark": "#ffd166"
     },
     {
@@ -142,8 +142,8 @@
     {
       "key": "color-surface-raised",
       "type": "color",
-      "light": "#eceef1",
-      "dark": "#1f1f23"
+      "light": "#d5d7da",
+      "dark": "#2d2d31"
     },
     {
       "key": "color-text",
