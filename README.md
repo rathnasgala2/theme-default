@@ -133,15 +133,29 @@ color, in **both** palettes independently (passing one palette never
 substitutes for the other, per the brief). All body/link/status/code text
 pairs clear 4.5:1; the non-text border/focus pairs clear 3:1.
 
-Eight of the 35 tokens (`color-accent`, `color-link-visited`,
-`color-on-accent`, `color-success`, `color-surface-raised`, `color-warning`,
-`space-3`, `space-8`) are declared but never referenced in this theme's own
-`components.css`/`print.css` (2026-09-25 review, THD-M1). A theme is
-permitted to declare a token it does not itself consume — nothing in the
-contract requires every declared token to appear in that same theme's CSS
-— but a future revision of this theme is expected to use its own status
-colors and spacing steps rather than carry them as pure documentation
-indefinitely; see the review for where they would naturally apply.
+Of the eight tokens the 2026-09-25 review (THD-M1) found declared but never
+referenced, five are now used: `color-accent` colors `h1`, `color-on-accent`
+and `space-3` style the header-actions link as an accent pill alongside
+`color-accent` again for its background, `color-surface-raised` lifts
+`select`/`option` a step above the flat header/footer surface, and
+`space-8` gives the article-end divider a more generous break than the
+body's own `space-6` rhythm.
+
+`color-link-visited`, `color-success` and `color-warning` remain declared
+but unreferenced. `color-link-visited` needs the `:visited` pseudo-class
+contract 2.1.0 publishes, but the `@rathnasgala2/theme-tooling` commit this
+repository is pinned to does not yet admit any pseudo-class in
+`css:check`'s selector grammar (see "CSS and the 64-hook styling contract"
+below) — using it today fails the build. `color-success`/`color-warning`
+have no natural home in this theme's markup surface at all: nothing this
+theme renders is a success or warning state (the one status hook,
+`page-error`, is already `color-danger`), and coloring an ordinary element
+"success green" or "warning amber" without an actual success/warning
+condition behind it would be decoration masquerading as semantics. A theme
+is permitted to declare a token it does not itself consume — nothing in
+the contract requires every declared token to appear in that same theme's
+CSS — and these three are left that way deliberately rather than forced
+into a use that would misrepresent them.
 
 ## CSS and the 64-hook styling contract
 

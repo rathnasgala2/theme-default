@@ -41,7 +41,10 @@
     font-family: var(--gala-font-heading);
   }
 
-  [data-gala-publication-root] h1,
+  [data-gala-publication-root] h1 {
+    color: var(--gala-color-accent);
+  }
+
   [data-gala-publication-root] h2,
   [data-gala-publication-root] h3,
   [data-gala-publication-root] h4,
@@ -206,7 +209,7 @@
   }
 
   [data-gala-publication-root] select {
-    background-color: var(--gala-color-surface);
+    background-color: var(--gala-color-surface-raised);
     border: var(--gala-border-width) solid var(--gala-color-border);
     border-radius: var(--gala-radius-small);
     color: var(--gala-color-text);
@@ -214,7 +217,7 @@
   }
 
   [data-gala-publication-root] option {
-    background-color: var(--gala-color-surface);
+    background-color: var(--gala-color-surface-raised);
     color: var(--gala-color-text);
   }
 
@@ -224,13 +227,20 @@
   }
 
   [data-gala-publication-root] #gala-appearance-color-mode {
-    background-color: var(--gala-color-surface);
     border-color: var(--gala-color-border);
   }
 
   [data-gala-publication-root] [data-gala-slot="header-actions"] {
     display: flex;
     gap: var(--gala-space-2);
+  }
+
+  [data-gala-publication-root] [data-gala-slot="header-actions"] a {
+    background-color: var(--gala-color-accent);
+    border-radius: var(--gala-radius-small);
+    color: var(--gala-color-on-accent);
+    padding: var(--gala-space-1) var(--gala-space-3);
+    text-decoration-line: none;
   }
 
   [data-gala-publication-root] [data-gala-slot="footer-profile"],
@@ -241,7 +251,7 @@
 
   [data-gala-publication-root] [data-gala-slot="article-end"] {
     border-top: var(--gala-border-width) solid var(--gala-color-border);
-    margin-top: var(--gala-space-6);
+    margin-top: var(--gala-space-8);
     padding-top: var(--gala-space-4);
   }
 
@@ -249,6 +259,9 @@
     color: var(--gala-color-danger);
   }
 
+  /* Root-scoped by contract (the first compound must be the root/palette
+     compound); relies on the highlight pseudo-element inheriting down the
+     originating-element chain, which current Chromium and Firefox do. */
   [data-gala-publication-root]::selection {
     background-color: var(--gala-color-selection);
     color: var(--gala-color-text);
