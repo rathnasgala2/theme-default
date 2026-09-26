@@ -16,6 +16,53 @@ ships as the next version; bumping `package.json`'s `version` for that
 release is an owner decision (recommended: `2.1.0`, since nothing below is
 a breaking change to the token/CSS-hook contract).
 
+### Added (THD-M10, 2026-09-25 second pass)
+
+- `.github/workflows/ci.yml` gains its own `visual` job: installs Chromium
+  and runs `@rathnasgala2/theme-tooling`'s `visual:check` (Playwright +
+  axe-core) against this theme at 320/768/1440px in both palettes,
+  uploading the screenshots as a build artifact. `tooling/package.json`
+  gains the matching `visual:check` dispatch. See README "Visual/
+  accessibility check" for the one open finding this surfaced (a harness
+  defect in the pinned `theme-tooling` commit, not a token gap in this
+  theme).
+
+### Changed (THD-M1, THD-H8, 2026-09-25 second pass)
+
+- `@rathnasgala2/theme-tooling`/`@rathnasgala2/template` sibling checkouts
+  re-pinned to `8fd9b36f85f4ae0a34dfb6ebb7c55319672071d2` and
+  `d2b2f0ffc38407851e293e5a8a92d8863a0182d1` across `ci.yml`,
+  `nightly.yml` and `release.yaml` (`stylingContractDigest` is unchanged:
+  the re-pinned contract's `catalogDigest` matches what was already
+  committed).
+- `theme.json.slotHooks` no longer declares `landmark-main-content`: no
+  rule in this theme's CSS matches `#main-content` (the forced-colors
+  override that used to was removed without replacement in the prior
+  pass), and `css:check` now asserts `slotHooks` set-equality against the
+  CSS in both directions (THM-M3), which a stale declared-but-unused hook
+  now fails.
+- `color-link-visited` is finally referenced: `a:visited` reads it.
+  `a:hover` gets a `text-decoration-thickness` change (no color shift),
+  and `select:focus-visible`/`a:focus-visible` each scope a
+  `--gala-color-focus` custom-property override — `gala-base` still paints
+  the actual ring; this theme never declares `outline-*` itself. Contract
+  2.1.0's `pseudoClasses` catalog is admitted by the pinned
+  `theme-tooling` commit's `css:check` as of this pass.
+- `color-accent` (and `color-focus`, which tracked it in the light
+  palette) and `color-surface-raised` move to new values in both palettes
+  to clear three contrast floors `theme-tooling` added
+  (`color-surface-raised`/`color-surface` >=1.3:1, `color-accent`/
+  `color-text` and `color-accent`/`color-surface` >=3:1 each) — see
+  README "The 35-token catalog and both palettes" for the exact values
+  and margins.
+- `components.css`'s `hr` (`prose-divider`) icon no longer uses the
+  wide-tile trick documented in the prior pass: `background-position`,
+  `background-repeat`, `background-size` and `width` are now admitted by
+  `grammar:check`'s property catalog, so the mark renders once, at its
+  native 16×8 size, centered in a `var(--gala-space-8)`-wide box.
+- Digest chain regenerated (`fixtureDigest`/`evidenceDigest`/`integrity`/
+  asset digests) for all of the above.
+
 ### Added (Contract 2.1.0 adoption, 2026-09-25)
 
 - `theme.json`'s `contractVersion` moves to `2.1.0` and `stylingContractDigest`

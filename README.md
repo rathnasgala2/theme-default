@@ -133,6 +133,19 @@ color, in **both** palettes independently (passing one palette never
 substitutes for the other, per the brief). All body/link/status/code text
 pairs clear 4.5:1; the non-text border/focus pairs clear 3:1.
 
+`@rathnasgala2/theme-tooling`'s externalised `contrast-pairs.json` (THD-M2)
+adds three adjacency floors beyond that original set: `color-surface-raised`
+on `color-surface` (>=1.3:1, so a "raised" surface is visibly distinct from
+the flat one it sits on), and `color-accent` on `color-text` and on
+`color-surface` (>=3:1 each, treating accent as a non-text UI color that can
+appear directly against body text or a raised surface). Clearing the first
+floor moved `color-surface-raised` from `#eceef1`/`#1f1f23` to
+`#d5d7da`/`#2d2d31` (light/dark); clearing the other two moved `color-accent`
+(and `color-focus`, which tracked it in the light palette) from
+`#0b4fa3`/`#7fb2ff` to `#0a6aa6`/`#0077fc`. Every previously-passing pair
+still clears its own floor with the new values (`contrast:check`'s full
+matrix is asserted by `tokens-contrast.test.mjs`).
+
 Of the eight tokens the 2026-09-25 review (THD-M1) found declared but never
 referenced, five are now used: `color-accent` colors `h1`, `color-on-accent`
 and `space-3` style the header-actions link as an accent pill alongside
@@ -141,13 +154,12 @@ and `space-3` style the header-actions link as an accent pill alongside
 `space-8` gives the article-end divider a more generous break than the
 body's own `space-6` rhythm.
 
-`color-link-visited`, `color-success` and `color-warning` remain declared
-but unreferenced. `color-link-visited` needs the `:visited` pseudo-class
-contract 2.1.0 publishes, but the `@rathnasgala2/theme-tooling` commit this
-repository is pinned to does not yet admit any pseudo-class in
+`color-link-visited` is now referenced too: `@rathnasgala2/theme-tooling`'s
+pinned commit admits contract 2.1.0's `pseudoClasses` catalog in
 `css:check`'s selector grammar (see "CSS and the 64-hook styling contract"
-below) — using it today fails the build. `color-success`/`color-warning`
-have no natural home in this theme's markup surface at all: nothing this
+below), so `components.css` declares `a:visited { color:
+var(--gala-color-link-visited); }`. `color-success` and `color-warning`
+remain declared but unreferenced. They have no natural home in this theme's
 theme renders is a success or warning state (the one status hook,
 `page-error`, is already `color-danger`), and coloring an ordinary element
 "success green" or "warning amber" without an actual success/warning
@@ -169,19 +181,25 @@ scoped under the required root compound `[data-gala-publication-root]` (or
 its resolved-palette variant), joined only by the contract's four closed
 combinators (` `, `>`, `+`, `~`). Contract 2.1.0 publishes a closed
 five-member `pseudoClasses` catalog (`:focus-visible`, `:hover`, `:visited`,
-`:active`, `:disabled`), but the `@rathnasgala2/theme-tooling` commit this
-repository is pinned to does not yet admit a pseudo-class in
-`check-css-hooks.mjs`'s selector grammar (it strips trailing `::`
-pseudo-elements only) — using one of the five today fails `css:check`, so
-this theme does not use any of them yet. The themed focus ring no longer
-needs one: `@rathnasgala2/template`'s own `gala-base` layer now ships a
-real `:focus-visible { outline-style: solid; ... }` rule reading
-`--gala-color-focus`/`--gala-focus-width` with a fallback, so this theme
-declares neither the pseudo-class nor any `outline-*` longhand at all —
-its only job is to give those two tokens a value. `theme.json.slotHooks` is
-the exact sorted set of the hook IDs this CSS actually uses (not the whole
-64-hook catalog — only the subset a theme actually styles is declared, per
-the S2 brief).
+`:active`, `:disabled`), plus `:nth-child`/`:nth-last-child` with the
+`even`/`odd`/positive-An+B keyword forms, and `check-css-hooks.mjs` admits
+all of them (stripped from the trailing end of a compound, alongside the
+existing closed pseudo-element set). This theme uses three of them:
+`a:visited` (reads `--gala-color-link-visited`), `a:hover` (a
+`text-decoration-thickness` change, no color shift), and
+`select:focus-visible`/`a:focus-visible` (each scopes a `--gala-color-focus`
+custom-property override, never an `outline-*` longhand — see below). The
+themed focus ring itself still comes entirely from
+`@rathnasgala2/template`'s own `gala-base` layer, which ships a real
+`:focus-visible { outline-style: solid; ... }` rule reading
+`--gala-color-focus`/`--gala-focus-width` with a fallback; this theme never
+declares `outline-style`/`outline-color`/`outline-width` itself, only the
+custom-property values that rule reads (including the two per-element
+overrides above). `theme.json.slotHooks` is the exact sorted set of the
+hook IDs this CSS actually uses (not the whole 64-hook catalog — only the
+subset a theme actually styles is declared, per the S2 brief), asserted in
+both directions by `css:check` (THM-M3): a declared hook the CSS never
+matches, or a matched hook `theme.json` does not declare, both fail.
 
 `tooling/test/css-hooks.test.mjs` parses every stylesheet with `postcss` (a pinned
 exact version) and `postcss-selector-parser`, and fails the build if any
@@ -222,19 +240,19 @@ allowlist — declared in `theme.json.assets` (`mediaType: "image/svg+xml"`)
 and `package.json.files`, and consumed by exactly one rule,
 `components.css`'s `hr` (`prose-divider`).
 
-The pattern other themes can follow: `background-image` and `height` are
-both in `check-css-grammar.mjs`'s closed property allowlist, but `width`,
-`background-position`, `background-repeat` and `background-size` are not —
-so a theme-declared icon has to get its layout from the allowed properties
-alone. This asset does it by being a wide (16×8) tile with the mark drawn
-once, near the left edge, and transparent everywhere else: the browser's
-default `background-repeat: repeat` still tiles it, but the visible glyph
-only ever appears once per `hr`, because `height: var(--gala-space-2)`
-leaves no room for a second row and the horizontal tile is wide enough that
-a second column never becomes visible at any realistic content measure. A
-theme wanting a _repeating_ motif instead (a dotted rule, a striped
-background) can use the same two properties directly, with the tile's own
-width chosen to repeat on purpose rather than to hide the repeat.
+The pattern other themes can follow: `background-image`, `background-position`,
+`background-repeat`, `background-size`, `width` and `height` are all in
+`check-css-grammar.mjs`'s closed property allowlist (the coordinator
+addendum that admitted the icon property set), so a theme-declared icon can
+be sized and centered directly rather than relying on a wide, mostly-transparent
+tile to hide the browser's default `background-repeat: repeat` (the
+approach an earlier revision of this asset used, before the property set
+opened up). `components.css`'s `hr` rule now sets `background-size: 1rem
+0.5rem` (the mark's native 16×8 pixel size), `background-repeat: no-repeat`,
+`background-position: center`, and a `width`/`margin: ... auto` pair that
+centers a `var(--gala-space-8)`-wide box around it, so the mark renders
+once, at its own size, in the middle of the divider — not tiled across the
+full content measure.
 
 A static SVG asset cannot read this package's `--gala-*` custom
 properties (it is not inlined into the document), so its fill is a literal
@@ -270,8 +288,28 @@ one that switches with the resolved palette.
   animation or transition of its own and so no longer repeats that guard.
 - **Zoom/reflow**: this theme sets no fixed pixel widths that would prevent
   320px-wide reflow (`main`'s `max-width` is a `rem` content measure, never
-  a lower bound); Playwright-driven 400% zoom/reflow, keyboard-journey and
-  axe-core runs are S2-T22, explicitly out of this task's scope.
+  a lower bound); a Playwright-driven 400% zoom assertion and keyboard-journey
+  walkthroughs remain S2-T22, out of this task's scope.
+- **Visual/accessibility check (THD-M10)**: `@rathnasgala2/theme-tooling`'s
+  `visual:check` (Playwright + axe-core, not part of `verify` — it needs a
+  browser binary; see `../theme-tooling/README.md` "Visual/accessibility
+  check") renders this theme through the template at 320/768/1440px in both
+  palettes and fails on any `serious`/`critical` axe violation or horizontal
+  overflow. `.github/workflows/ci.yml`'s `visual` job runs it on every push
+  and uploads screenshots as a build artifact. Five of the six combinations
+  are clean; the dark-palette run reports a `color-contrast` violation on
+  the rendered `a` elements that this repository's own token-level
+  `contrast:check` does not reproduce for the same `color-link`/background
+  pairs (8.28:1-8.92:1) — inspecting the rendered page shows none of this
+  theme's stylesheets or the template's bootstrap script actually load
+  under the harness's `file://` navigation (their `href`/`src` are
+  root-absolute paths, which do not resolve against a `file://` origin), so
+  the flagged color is the browser's unstyled dark-mode default link color,
+  not a token this theme controls. This is a harness defect in
+  `@rathnasgala2/theme-tooling`'s pinned commit, not a theme-content
+  contrast gap; it is expected to clear once the harness serves the fixture
+  over `http://` (or otherwise resolves root-absolute asset paths) instead
+  of opening the rendered file directly.
 
 ## Digest cycle (`fixtureDigest`, `evidenceDigest`, `integrity`)
 
