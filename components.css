@@ -79,6 +79,18 @@
     text-decoration-line: underline;
   }
 
+  [data-gala-publication-root] a:visited {
+    color: var(--gala-color-link-visited);
+  }
+
+  [data-gala-publication-root] a:hover {
+    text-decoration-thickness: 0.15em;
+  }
+
+  [data-gala-publication-root] a:focus-visible {
+    --gala-color-focus: var(--gala-color-link);
+  }
+
   [data-gala-publication-root] blockquote {
     border-inline-start: var(--gala-border-width) solid var(--gala-color-border);
     color: var(--gala-color-text-muted);
@@ -218,6 +230,10 @@
     border-radius: var(--gala-radius-small);
     color: var(--gala-color-text);
     padding: var(--gala-space-1) var(--gala-space-2);
+  }
+
+  [data-gala-publication-root] select:focus-visible {
+    --gala-color-focus: var(--gala-color-accent);
   }
 
   [data-gala-publication-root] option {
