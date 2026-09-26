@@ -188,8 +188,11 @@ existing closed pseudo-element set). This theme uses three of them:
 `a:visited` (reads `--gala-color-link-visited`), `a:hover` (a
 `text-decoration-thickness` change, no color shift), and
 `select:focus-visible`/`a:focus-visible` (each scopes a `--gala-color-focus`
-custom-property override, never an `outline-*` longhand — see below). The
-themed focus ring itself still comes entirely from
+custom-property override, never an `outline-*` longhand — see below). `a`
+itself also sets `text-decoration-skip-ink: auto` so the underline breaks
+around descenders instead of cutting through them (admitted by the pinned
+`theme-tooling` commit's `check-css-grammar.mjs`, closed to
+`auto`/`none`/`all`). The themed focus ring itself still comes entirely from
 `@rathnasgala2/template`'s own `gala-base` layer, which ships a real
 `:focus-visible { outline-style: solid; ... }` rule reading
 `--gala-color-focus`/`--gala-focus-width` with a fallback; this theme never

@@ -34,6 +34,13 @@ a breaking change to the token/CSS-hook contract).
   which changes `evidenceDigest`'s conformance-result input even though no
   file in this repository's own published set changed bytes.
 
+### Added (THD-M12, 2026-09-25 third pass)
+
+- `components.css`'s `a` rule sets `text-decoration-skip-ink: auto` so the
+  underline breaks around descenders instead of cutting through them,
+  admitted by the pinned `theme-tooling` commit's `check-css-grammar.mjs`
+  (closed to `auto`/`none`/`all`). Digest chain regenerated.
+
 ### Added (THD-M10, 2026-09-25 second pass)
 
 - `.github/workflows/ci.yml` gains its own `visual` job: installs Chromium
