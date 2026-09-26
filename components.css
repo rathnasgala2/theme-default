@@ -112,9 +112,13 @@
 
   [data-gala-publication-root] hr {
     background-image: url("assets/divider-mark.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1rem 0.5rem;
     border: 0;
     height: var(--gala-space-2);
-    margin: var(--gala-space-6) 0;
+    margin: var(--gala-space-6) auto;
+    width: var(--gala-space-8);
   }
 
   [data-gala-publication-root] time {
