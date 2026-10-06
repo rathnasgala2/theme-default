@@ -4,6 +4,26 @@ All notable changes to `@rathnasgala2/theme-default` are documented here.
 
 ## Unreleased
 
+## 3.0.0 - 2026-10-05
+
+Breaking. This theme becomes the approved redesign's Default look, with no
+compatibility with 2.x.
+
+- `theme.json` now carries the 116-token contract (schema 3.0.0) with the
+  Default values, `contractVersion` 3.0.0, `templateRange` `^3.0.0` and the
+  template styling contract 3.0.0 digest. The old 35-token catalog and its
+  token keys are gone.
+- `tokens.css` is generated from `theme.json` (`tokens:generate`) and checked
+  by `tokens:check`.
+- `components.css` shrank to a few skin rules; layout and components now live
+  in the template's base layer. Only the 11 hooks the CSS uses are listed in
+  `slotHooks`.
+- `print.css` keeps the same rules.
+- Removed `assets/divider-mark.svg`; nothing uses it any more.
+- Size budgets raised to 32768 bytes per file and 98304 in total.
+- CI pins the template and theme-tooling commits for contract 3 (unpushed
+  local commits at the time of this change).
+
 ## 2.1.0 - 2026-09-26
 
 2026-09-25 code-discipline review remediation (THD-H5): this file
