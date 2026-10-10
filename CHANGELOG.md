@@ -4,6 +4,11 @@ All notable changes to `@rathnasgala2/theme-default` are documented here.
 
 ## Unreleased
 
+## 3.0.1 - 2026-10-10
+
+- Light `paint-panel` gradient ends at `#007c7c` instead of `#00a3a3`, so the
+  panel text reaches 4.5:1 at every stop (was 3.10 at the last stop).
+
 ## 3.0.0 - 2026-10-05
 
 Breaking. This theme becomes the approved redesign's Default look, with no
