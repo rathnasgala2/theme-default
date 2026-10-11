@@ -4,6 +4,21 @@ All notable changes to `@rathnasgala2/theme-default` are documented here.
 
 ## Unreleased
 
+## 4.0.0 - 2026-10-11
+
+Breaking. This package now requires the generation-4 template contract; no
+generation-3 compatibility is provided.
+
+- Preserved the Default token palettes and CSS skin without visual retuning.
+- Added the complete Newsletter composition: newspaper home, issue article,
+  profile author page, issue listings, publication header, expanded footer,
+  landscape media, and comfortable density.
+- Updated the package identity, `contractVersion`, and `templateRange` to
+  4.0.0/`^4.0.0`, then regenerated the conformance digest chain.
+- Development and verification consume theme tooling from an explicit source
+  checkout; it installs integrity-checked vendored Schema 3.8.0 and Template
+  4.0.0 archives. No npm publication is part of this release.
+
 ## 3.0.1 - 2026-10-10
 
 - Light `paint-panel` gradient ends at `#007c7c` instead of `#00a3a3`, so the
