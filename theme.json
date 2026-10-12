@@ -2,9 +2,9 @@
   "schemaId": "urn:gala:schema:theme-contract:2.0.0",
   "schemaVersion": "2.0.0",
   "themeId": "default",
-  "package": "@rathnasgala2/theme-default@4.0.0",
+  "package": "@rathnasgala2/theme-default@4.1.0",
   "contractVersion": "4.0.0",
-  "templateRange": "^4.0.0",
+  "templateRange": "^4.1.0",
   "stylesheets": ["tokens.css", "components.css", "print.css"],
   "cssLayers": ["gala-tokens", "gala-components", "gala-print"],
   "slotHooks": [
@@ -648,13 +648,78 @@
     },
     { "key": "weight-ui", "type": "font-weight", "light": "560", "dark": "560" }
   ],
+  "palette": {
+    "profile": "gala-palette-follow-v1",
+    "follow": [
+      { "key": "border-button", "light": [null], "dark": [null] },
+      { "key": "border-card", "light": ["canvas"], "dark": ["canvas"] },
+      { "key": "border-chip", "light": [null], "dark": [null] },
+      { "key": "border-media-divider", "light": [], "dark": [] },
+      { "key": "border-quote", "light": ["accent"], "dark": ["accent"] },
+      { "key": "border-row-divider", "light": [], "dark": [] },
+      { "key": "border-section-rule", "light": [], "dark": [] },
+      { "key": "color-accent", "light": ["accent"], "dark": ["accent"] },
+      { "key": "color-border", "light": ["canvas"], "dark": ["canvas"] },
+      { "key": "color-btn-panel", "light": ["canvas"], "dark": ["canvas"] },
+      {
+        "key": "color-btn-panel-text",
+        "light": ["accent"],
+        "dark": ["accent"]
+      },
+      { "key": "color-btn-text", "light": ["canvas"], "dark": ["canvas"] },
+      { "key": "color-canvas", "light": ["canvas"], "dark": ["canvas"] },
+      { "key": "color-chip-text", "light": ["accent"], "dark": ["accent"] },
+      { "key": "color-focus", "light": ["accent"], "dark": ["accent"] },
+      { "key": "color-footer", "light": ["canvas"], "dark": ["canvas"] },
+      { "key": "color-header", "light": ["canvas"], "dark": ["canvas"] },
+      { "key": "color-icon-accent", "light": ["accent"], "dark": ["accent"] },
+      { "key": "color-link", "light": ["accent"], "dark": ["accent"] },
+      {
+        "key": "color-link-underline",
+        "light": ["accent"],
+        "dark": ["accent"]
+      },
+      {
+        "key": "color-link-underline-hover",
+        "light": ["accent"],
+        "dark": ["accent"]
+      },
+      { "key": "color-on-accent", "light": ["canvas"], "dark": ["canvas"] },
+      { "key": "color-panel-text", "light": ["canvas"], "dark": ["canvas"] },
+      { "key": "color-selection", "light": ["accent"], "dark": ["accent"] },
+      { "key": "color-surface", "light": ["canvas"], "dark": ["canvas"] },
+      {
+        "key": "color-surface-raised",
+        "light": ["canvas"],
+        "dark": ["canvas"]
+      },
+      { "key": "color-text", "light": ["text"], "dark": ["text"] },
+      { "key": "color-text-faint", "light": ["text"], "dark": ["text"] },
+      { "key": "color-text-muted", "light": ["text"], "dark": ["text"] },
+      { "key": "color-toc-active-text", "light": ["text"], "dark": ["text"] },
+      { "key": "paint-button", "light": ["accent"], "dark": ["accent"] },
+      { "key": "paint-chip", "light": ["accent"], "dark": ["accent"] },
+      { "key": "paint-page-decor", "light": ["accent"], "dark": ["accent"] },
+      {
+        "key": "paint-panel",
+        "light": ["accent", "accent", "accent"],
+        "dark": ["accent", "accent", "accent"]
+      },
+      {
+        "key": "shadow-avatar-ring",
+        "light": ["canvas", "canvas"],
+        "dark": ["canvas", "canvas"]
+      },
+      { "key": "shadow-button", "light": [null, "accent"], "dark": [null] }
+    ]
+  },
   "modes": ["dark", "light", "system"],
   "assets": [
     {
       "path": "tokens.css",
       "mediaType": "text/css",
-      "byteLength": "19383",
-      "sha256": "sha256:3f927dc69a85e1f6f9d0fdba711dd8b44c05a5657407201fb6b4c9bc7f7aa71f",
+      "byteLength": "13045",
+      "sha256": "sha256:d685e34a49a98f18d7cee2c4367cf1077262b2e267512d1ffd569611ad8ea3bc",
       "license": "Apache-2.0"
     },
     {
@@ -680,14 +745,14 @@
     "fixture-token-catalog-contrast"
   ],
   "browserPolicyRef": "gala-theme-css-v2-20211224",
-  "integrity": "sha256:6743d5eff493dfac33697aa86917ec8de3e1381cf965bb4741d98cc7b0bdb717",
+  "integrity": "sha256:4cbc1b6176ef9ce20073f8f219b9916250530d3bd85955d56cf99a1cacff8127",
   "budgets": {
     "maximumFileBytes": "32768",
     "maximumTotalBytes": "98304",
     "maximumFiles": 8
   },
   "fixtureDigest": "sha256:75267c3c8593f553e3dde7265593e4c0c5582139bb4344ecb0a3b768c6e0f4c4",
-  "evidenceDigest": "sha256:21e159aaf8259cb200d5f46aa6abaa98ebf57fddd5df34c562bea462ecdb23f4",
+  "evidenceDigest": "sha256:75d1a7cb9eb554e14f6707f56ebb15c9fcda26052e06f0b3ea778ed0562ce207",
   "stylingContractDigest": "sha256:63a76754b591a3cda91a4be1f43bdb3fe1d44cf4f9be766154f3944a043399b5",
   "composition": {
     "schemaId": "urn:gala:schema:template-composition:2.0.0",
